@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Example</title>
+</head>
+<style>
+    body{
+        background-color: #d4cabd;
+    }
+    button
+    {
+        background-color: rgb(100, 110, 100);
+        font-family: sans-serif;
+        color: ivory;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 6px 2px;
+    }
+    h1{
+        font-family: 'Times New Roman', Times, serif;
+        background-color: rgb(177, 169, 165);
+        width: 40%;
+        height: 20%;
+        
+    }
+    .container{
+       width: 70%;
+       margin: auto;
+      background-color: lightslategray;
+       padding:6%;
+      
+
+
+    }
+    #image
+    {
+        float: left;
+        width: 20%;
+        box-sizing: border-box;
+        padding: 2px;
+    }
+    #info{
+       float:right;
+       width: 80%;
+       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+       font-size: 14px;
+       box-sizing: border-box;
+       background-color:lightgrey ;
+
+       
+    }
+    li{
+        list-style-type: none;
+    }
+
+</style>
+<body>
+     
+    <button id="showinfo">Load GitHub Users</button>
+    <h1>GitHub Users </h1>
+    <div id="showme"></div>
+    <script>
+        document.getElementById('showinfo').addEventListener('click', onProcess);
+
+        function onProcess() {
+            var req = new XMLHttpRequest();
+            req.open('GET', 'https://api.github.com/users', true);
+            req.onload = function() {
+                if (req.status == 200) {
+                    var people = JSON.parse(req.responseText)
+                    var output= ' ';
+                    for(var i in people){
+                    output +=
+                     '<div class="container">' +
+                    '<section id="image">'+
+                     '<div class="container">' +
+                    '<img src="'+people[i].avatar_url+'" width="100" height="100">' +
+                    '</section>'+
+                    '<section id= "info">'+
+                        '<ul>' +
+                            '<li>ID: '+people[i].id+'</li>' +
+                               '<li>Login: '+people[i].login+'</li>' +
+                               '<li>Repos :<a href="' + people[i].repos_url + '">'+people[i].repos_url+'</a></li>'+
+                               '<li>URL :<a href="' + people[i].url + '">'+people[i].url+'</a></li>'+
+                               '<li>Gits URL :<a href="' + people[i].gists_url + '">'+people[i].gists_url+'</a></li>'+
+                                  '</ul>' +
+                                 '</section>'+
+                                 '</div>'+
+                                 '</div>';
+                                 
+                    
+                         }
+                        
+                }
+                document.getElementById('showme').innerHTML = output;
+              
+
+            }
+            req.send();
+        }
+
+    </script>   
+   
+</body>
+</html>

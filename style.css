@@ -1,6 +1,7 @@
 body{
     background-color: lavenderblush;
     background-image: url(Back.jpg);
+    background-size:100%;
     color: black;
     font : 17px;
     line-height: 1.5;
